@@ -5,7 +5,7 @@ services:
     container_name: rabbitmq
     volumes:
       - ./container_data/rabbitmq/etc/:/etc/rabbitmq/
-      - ./container_data/rabbitmq/data/:/var/lib/rabbitmq/
+      - rabbitmq_variable:/var/lib/rabbitmq/
       - ./container_data/rabbitmq/logs/:/var/log/rabbitmq/
     environment:
       RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
@@ -69,15 +69,15 @@ services:
     networks:
       - planx
 
-  plan-validation-service:
-    image: planx.toolbox.system-management.plan-validation
-    container_name: plan-validation-service
-    volumes:
-      - ./container_data/plan-validation-service/logs/:/logs/
-    depends_on:
-      - rabbitmq
-    networks:
-      - planx
+#  plan-validation-service:
+#    image: planx.toolbox.system-management.plan-validation
+#    container_name: plan-validation-service
+#    volumes:
+#      - ./container_data/plan-validation-service/logs/:/logs/
+#    depends_on:
+#      - rabbitmq
+#    networks:
+#      - planx
 
   frontend-service:
     image: planx.toolbox.endpoint.modelling
@@ -91,3 +91,6 @@ services:
 
 networks:
   planx:
+
+volumes:
+  rabbitmq_variable:
